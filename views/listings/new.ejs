@@ -3,10 +3,12 @@
     <div class="col-md-6 offset-2">
     <h1>Create New Listing</h1>
     <br/>
-    <form action="/listings" method="POST">
+    <form action="/listings" method="POST" novalidate class="needs-validation">
         <div class="mb-3">
             <label for="tittle" class="form-label">tittle</label>
-        <input name="listings[tittle]" placeholder="enter tittle" type="text" class="form-control" >
+        <input name="listings[tittle]" placeholder="enter tittle" type="text" class="form-control" required >
+        <div class="valid-feedback">
+            tittle is good!.
         </div>
         <div class="mb-3">
             <label for="description" class="form-label">Description</label>
@@ -14,7 +16,11 @@
                 name="listings[description]"
                 placeholder="enter description"
                 class="form-control"
+                required
             ></textarea>
+            <div class="invalid-feedback">
+                Please enter a short description.
+            </div>
         </div>
         <div class="mb-3">
             <label for="image" class="form-label">Image URL/Link</label>
@@ -30,7 +36,11 @@
             name="listings[price]"
             placeholder="enter price" 
             type="number"
-            class="form-control" >
+            class="form-control" 
+            required>
+            <div class="invalid-feedback">
+                Please enter a valid price.
+            </div>
         </div>
         
         <div class="mb-3 col-md-8">
@@ -39,12 +49,22 @@
             name="listings[country]"
             placeholder="enter country"
             type="text"
-            class="form-control" >
+            class="form-control" 
+            required>
+            <div class="invalid-feedback">
+                Please enter a valid country.
         </div>
         </div>
         <div class="mb-3">
             <label for="location" class="form-label">Location</label>
-            <input name="listings[location]" placeholder="enter location" type="text" class="form-control" >
+            <input name="listings[location]" 
+            placeholder="enter location" 
+            type="text"
+            class="form-control"
+             required>
+             <div class="invalid-feedback">
+                Please enter a valid location.
+        </div>
         </div>
         <br  />
         <button class="btn btn-dark add-btn">Add Listing</button>
