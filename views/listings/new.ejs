@@ -5,15 +5,19 @@
     <br/>
     <form action="/listings" method="POST" novalidate class="needs-validation">
         <div class="mb-3">
-            <label for="tittle" class="form-label">tittle</label>
-        <input name="listings[tittle]" placeholder="enter tittle" type="text" class="form-control" required >
+            <label for="title" class="form-label">title</label>
+        <input type="text"
+        name="listing[title]" 
+        placeholder="enter title"  
+         class="form-control" 
+         required >
         <div class="valid-feedback">
             tittle is good!.
         </div>
         <div class="mb-3">
             <label for="description" class="form-label">Description</label>
             <textarea 
-                name="listings[description]"
+                name="listing[description]"
                 placeholder="enter description"
                 class="form-control"
                 required
@@ -24,7 +28,7 @@
         </div>
         <div class="mb-3">
             <label for="image" class="form-label">Image URL/Link</label>
-            <input name="listings[image]" 
+            <input name="listing[image]" 
             placeholder="enter image URL/Link" type="text" 
             class="form-control" >
         </div>
@@ -33,7 +37,7 @@
         <div class="mb-3 col-md-4">
             <label for="price" class="form-label">Price</label>
             <input
-            name="listings[price]"
+            name="listing[price]"
             placeholder="enter price" 
             type="number"
             class="form-control" 
@@ -46,7 +50,7 @@
         <div class="mb-3 col-md-8">
             <label for="country" class="form-label">Country</label>
             <input 
-            name="listings[country]"
+            name="listing[country]"
             placeholder="enter country"
             type="text"
             class="form-control" 
@@ -57,7 +61,7 @@
         </div>
         <div class="mb-3">
             <label for="location" class="form-label">Location</label>
-            <input name="listings[location]" 
+            <input name="listing[location]" 
             placeholder="enter location" 
             type="text"
             class="form-control"

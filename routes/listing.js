@@ -6,6 +6,7 @@ const ExpressError = require('../utils/ExpressError');
 const { listingSchema} = require('../schema.js');
 
 const validateListing = (req, res, next) => {
+    console.log(req.body);
     let { error } = listingSchema.validate(req.body);
 
     if (error) {
@@ -35,15 +36,26 @@ router.get('/:id', wrapAsync(async (req, res) => {
 }));
 
 // create route
-router.post('/', validateListing, wrapAsync(async (req, res, next) => {
-    let result = listingSchema.validate(req.body);
-    console.log(result);
-    if (result.error) {
-        throw new ExpressError(400, result.error);
-    }
+router.post('/',(req,res,next)=>{
+    console.log(req.body);
+    next();
+} ,validateListing, wrapAsync(async (req, res, next) => {
+    // let result = listingSchema.validate(req.body);
+    // console.log(result);
+    // if (result.error) {
+    //     throw new ExpressError(400, result.error);
+    // }
+    try{
     const newListing = new Listing(req.body.listing);
+    console.log(newListing);
     await newListing.save();
+    console.log("saved Successfully");
+    req.flash("success", "New Listing Created!");
     res.redirect(`/listings`);
+    }
+    catch (err){
+        console.log(err);
+    }
 }));
 
 
