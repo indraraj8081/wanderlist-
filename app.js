@@ -10,6 +10,7 @@ const ExpressError = require('./utils/ExpressError');
 const { listingSchema ,reviewSchema} = require('./schema');
 const Review = require('./models/review.js');
 const session = require("express-session");
+const flash = require("connect-flash");
 
 
 
@@ -43,8 +44,8 @@ const sessionOptions ={
         expires: Date.now() +7*24*60*60*1000,
         maxAge : 7*24*60*60*1000,
         httpOnly: true,
-    }
-}
+    },
+};
 app.use(session(sessionOptions));
 
 
