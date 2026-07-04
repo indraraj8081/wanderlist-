@@ -9,14 +9,18 @@
    alt="listing-image">
   <div class="card-body">
     <p class="card-text">
-       <%= listing.description %> <br />
-        &#8377; <%= listing.price.toLocaleString("en-IN") %>/night <br>
-        <%= listing.location %>, <%= listing.country %>
-        <%= listing.country %>
+      <p class="card-text"><b>Owner:</b>
+        <%= listing.owner.username %></p>
+       <p class="card-text"><%= listing.description %></p>
+        &#8377; <p class="card-text"><%= listing.price.toLocaleString("en-IN") %></p>
+       <p class="card-text"> <%= listing.location %></p>
+
+       <p class="card-text"> <%= listing.country %></p>
 
     </p>
   </div>
 </div>
+<br/>
 
 <div class="btns" >
     <a href="/listings/<%= listing._id %>/edit" class="btn btn-dark col-1 offset-3 edit-btn">Edit</a>
@@ -24,6 +28,7 @@
     <button type="submit" class="btn btn-dark  offset-5delete-btn">Delete</button>
     </form>
 </div>
+
  
     
     <div class="col-8 offset-3 mb-3">
