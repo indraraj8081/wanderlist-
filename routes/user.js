@@ -20,7 +20,7 @@ router.route("/login")
 // login route
 .post(saveRedirectUrl, passport.authenticate("local", 
     {failureFlash: true, 
-        failureRedirect: "/login"}), wrapAsync(userControllers.login));
+        failureRedirect: "/login"}), userControllers.login);
 
 // login route
 router.get("/logout", isLoggedIn, userControllers.logout);

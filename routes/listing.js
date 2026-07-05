@@ -12,10 +12,13 @@ router.route('/')
 // index route
 .get( wrapAsync(listingsController.index))
 // create route
-.post( isLoggedIn, 
-    validateListing,
-    wrapAsync(listingsController.createlistings))
-;
+// .post( isLoggedIn, 
+//     validateListing,
+//     wrapAsync(listingsController.createlistings))
+// ;
+.post((req,res)=> {
+    res.send(req.body);
+});
 
 // new route
 router.get('/new', isLoggedIn,(listingsController.renderNewForm));
