@@ -40,14 +40,23 @@ module.exports.createlistings = async (req, res) => {
 module.exports.renderEditForm = async (req, res) => {
     const { id } = req.params;
     const listing = await Listing.findById(id);
-    res.render('listings/edit.ejs', { listing });
+    let originalImageurl = listing.image.url;
+    originalImageurl = originalImageurl.replace("/uplaod" , "/upload/w_50");
+    res.render('listings/edit.ejs', { listing, originalImageurl });
 };
 
 // update route
 module.exports.update = async (req, res) => {
     
     let { id } = req.params;
-    await Listing.findByIdAndUpdate(id,{ ...req.body.listing });
+    let listing = await Listing.findByIdAndUpdate(id,{ ...req.body.listing });
+    if(typeof req.file !== 'undefined'){
+     let url = req.file.path;
+    let filename = req.file.filename;
+    listing.image = {url: url, filename: filename};
+    await listing.save();
+    }
+
     req.flash("success", "Listing Updated Successfully!");
     res.redirect(`/listings/${id}`);
 };
