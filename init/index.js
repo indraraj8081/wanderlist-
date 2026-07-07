@@ -1,13 +1,21 @@
-const mongoose = require('mongoose');
-const initData = require('../init/data.js');
-const Listing = require('../models/listing.js');
+require("dotenv").config();
 
+const mongoose = require("mongoose");
+const initData = require("./data.js");
+const Listing = require("../models/listing.js");
 
+const dbUrl = process.env.ATLASDB_URL;
+const path = require("path");
+
+require("dotenv").config({
+  path: path.resolve(__dirname, "../.env"),
+});
 async function main() {
-  await mongoose.connect('mongodb://127.0.0.1:27017/wanderlust');
+    await mongoose.connect(dbUrl);
 }
-main().then(()=> {console.log('Connected to MongoDB');
-})
+
+main()
+.then(() => console.log("Connected to MongoDB"))
 .catch(err => console.log(err));
 // ak function bana lenga initdb
 

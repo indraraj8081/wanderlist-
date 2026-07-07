@@ -15,6 +15,7 @@ const ExpressError = require('./utils/ExpressError');
 const { listingSchema ,reviewSchema} = require('./schema');
 const Review = require('./models/review.js');
 const session = require("express-session");
+const MongoStore = require("connect-mongo").default;
 const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
@@ -29,8 +30,10 @@ const userRouter = require("./routes/user.js");
 
 const PORT = 8080;
 
+const dbUrl = process.env.ATLASDB_URL;
+
 async function main() {
-  await mongoose.connect('mongodb://127.0.0.1:27017/wanderlust');
+  await mongoose.connect(dbUrl);
 }
 main().then(() => console.log('Connected to MongoDB'))
 .catch(err => console.log(err));
@@ -45,9 +48,24 @@ app.use(express.static(path.join(__dirname, "/public")));
 app.engine('ejs', ejsMate);
 // joi ko function ke form me convert karne ke liye hum ek middleware function bana sakte hain jo request body ko validate karega aur agar validation fail hota hai to error throw karega. Aapka `validateListing` function is kaam ke liye sahi hai. 
 
+
+const store = MongoStore.create({
+    mongoUrl: dbUrl,    
+    crypto: {
+        secret: process.env.SECRET,
+    },
+    touchAfter: 24*3600,
+});
+
+store.on("error", function(e){
+    console.log("SESSION STORE ERROR", e);
+});
+
+
 const sessionOptions ={
-    secret: "mysupersecretcode",
-    resave: false,
+    secret: process.env.SECRET,
+    store: store,
+        resave: false,
     saveUninitialized: true,
     cookie:{
         expires: Date.now() +7*24*60*60*1000,
@@ -55,6 +73,8 @@ const sessionOptions ={
         httpOnly: true,
     },
 };
+
+
 app.use(session(sessionOptions));
 app.use(flash());
 
